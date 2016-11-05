@@ -42,12 +42,15 @@ It goes without saying that you should install into a virtualenv.
 Finding your station ID
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-Have a look in the `stations.json <https://github.com/kopf/vvs/stations.json>`
+Have a look in the stations.json_
 file for the station that you want to monitor. Every station is paired with an
 ID, and you'll need this when running ``vvs``.
 
 Please note that the ``stations.json`` file in this repo won't be kept updated.
-If you can't find your station ID, `follow the instructions here <https://github.com/LUGBB/vvs-station-monitor#get-station-id>`
+If you can't find your station ID, follow the instructions here_.
+
+.. _stations.json: https://github.com/kopf/vvs/stations.json
+.. _here: https://github.com/LUGBB/vvs-station-monitor#get-station-id
 
 Setting up the scraper
 ~~~~~~~~~~~~~~~~~~~~~~
@@ -95,5 +98,6 @@ in which it displays the data can be customized:
     19:25, 19:40, 19:55, 20:10, 20:25, 20:40, 20:55, 21:13, 21:43, 22:13
     $
 
-Python's `time formatting directives <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`
-are used for string formatting.
+Python's time formatting directives (link_) are used for string formatting.
+
+.. _link: https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior

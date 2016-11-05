@@ -34,8 +34,9 @@ Installation
 
 Install using pip3:
 
-    pip3 install vvs
+.. code-block::
 
+    pip3 install vvs
 
 It goes without saying that you should install into a virtualenv.
 
@@ -49,7 +50,7 @@ ID, and you'll need this when running ``vvs``.
 Please note that the ``stations.json`` file in this repo won't be kept updated.
 If you can't find your station ID, follow the instructions here_.
 
-.. _stations.json: https://github.com/kopf/vvs/stations.json
+.. _stations.json: https://github.com/kopf/vvs/blob/master/stations.json
 .. _here: https://github.com/LUGBB/vvs-station-monitor#get-station-id
 
 Setting up the scraper
@@ -60,14 +61,18 @@ can be achieved by using the ``vvs scrape`` command. We'll then want to cache th
 data somewhere locally. So, if our station ID were 5007115 (Hulb), we'd set up
 a cronjob to do this every few minutes:
 
-    */3 * * * * "vvs scrape 5007115 > ~/.vvs.json"
+.. code-block::
+
+    */3 * * * * vvs scrape 5007115 > ~/.vvs.json
 
 With this command, we'll be tracking the departures of all public transport
 from Hulb - but in both directions. We just want departures heading in to town.
 
 In order to filter for what we want, we first use the ``list_directions`` subcommand:
 
-    $ vvs list_directions 5007115                                                                                                                                                          (vvs)
+.. code-block::
+
+    $ vvs list_directions 5007115
     Herrenberg
     Kirchheim (T)
     Neckarpark
@@ -78,7 +83,9 @@ This is a list of all terminating stations for public transport passing through
 Hulb. Departures of the S-Bahn in the direction of Kirchheim an der Teck and
 Plochingen are the ones we're after, so we'll filter for them:
 
-    */3 * * * * "vvs scrape 5007115 --direction Plochingen --direction "Kirchheim (T)" > ~/.vvs.json"
+.. code-block::
+
+    */3 * * * * vvs scrape 5007115 --direction Plochingen --direction 'Kirchheim (T)' > ~/.vvs.json
 
 Now we should be getting the data we're after!
 
@@ -87,6 +94,8 @@ Displaying the data
 
 The ``vvs display`` command is used to display the data we've saved. The style
 in which it displays the data can be customized:
+
+.. code-block::
 
     $ vvs display ~/.vvs.json
     In 7, 22, 37 min

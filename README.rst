@@ -123,8 +123,8 @@ If you get an error that looks like this:
 
     RuntimeError: Click will abort further execution because Python 3 was configured to use ASCII as encoding for the environment.
 
-Make sure you have your locales set correctly (``LC_ALL`` and ``LANG`` are ``export``ed).
-If that's not possible, then set them temporarily when you invoke ``vvs`` , e.g.:
+Make sure you have your locales set correctly (``LC_ALL`` and ``LANG`` are exported).
+If that's not possible, then set them temporarily when you invoke ``vvs``, e.g.:
 
 .. code-block::
 

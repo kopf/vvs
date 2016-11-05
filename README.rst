@@ -34,8 +34,7 @@ Installation
 
 Install using pip3:
 
-.. code-block::
-   pip3 install vvs
+    pip3 install vvs
 
 
 It goes without saying that you should install into a virtualenv.
@@ -58,29 +57,25 @@ can be achieved by using the ``vvs scrape`` command. We'll then want to cache th
 data somewhere locally. So, if our station ID were 5007115 (Hulb), we'd set up
 a cronjob to do this every few minutes:
 
-.. code-block::
-   */3 * * * * "vvs scrape 5007115 > ~/.vvs.json"
-
+    */3 * * * * "vvs scrape 5007115 > ~/.vvs.json"
 
 With this command, we'll be tracking the departures of all public transport
 from Hulb - but in both directions. We just want departures heading in to town.
 
 In order to filter for what we want, we first use the ``list_directions`` subcommand:
 
-.. code-block::
-   $ vvs list_directions 5007115                                                                                                                                                          (vvs)
-   Herrenberg
-   Kirchheim (T)
-   Neckarpark
-   Plochingen
-   $
+    $ vvs list_directions 5007115                                                                                                                                                          (vvs)
+    Herrenberg
+    Kirchheim (T)
+    Neckarpark
+    Plochingen
+    $
 
 This is a list of all terminating stations for public transport passing through
 Hulb. Departures of the S-Bahn in the direction of Kirchheim an der Teck and
 Plochingen are the ones we're after, so we'll filter for them:
 
-.. code-block::
-   */3 * * * * "vvs scrape 5007115 --direction Plochingen --direction "Kirchheim (T)" > ~/.vvs.json"
+    */3 * * * * "vvs scrape 5007115 --direction Plochingen --direction "Kirchheim (T)" > ~/.vvs.json"
 
 Now we should be getting the data we're after!
 
@@ -90,17 +85,15 @@ Displaying the data
 The ``vvs display`` command is used to display the data we've saved. The style
 in which it displays the data can be customized:
 
-.. code-block::
-   $ vvs display ~/.vvs.json
-   In 7, 22, 37 min
-   $
-   $ vvs display --limit 10 ~/.vvs.json
-   In 6, 21, 36, 51, 66, 81, 96, 114, 144, 174 min
-   $
-   $ vvs display --limit 10 --format %H:%M ~/.vvs.json
-   19:25, 19:40, 19:55, 20:10, 20:25, 20:40, 20:55, 21:13, 21:43, 22:13
-   $
-
+    $ vvs display ~/.vvs.json
+    In 7, 22, 37 min
+    $
+    $ vvs display --limit 10 ~/.vvs.json
+    In 6, 21, 36, 51, 66, 81, 96, 114, 144, 174 min
+    $
+    $ vvs display --limit 10 --format %H:%M ~/.vvs.json
+    19:25, 19:40, 19:55, 20:10, 20:25, 20:40, 20:55, 21:13, 21:43, 22:13
+    $
 
 Python's `time formatting directives <https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior>`
 are used for string formatting.

@@ -1,9 +1,9 @@
 from datetime import datetime
 import json
 
+from bs4 import BeautifulSoup
 import click
 import requests
-from bs4 import BeautifulSoup
 
 
 URL = ('http://www2.vvs.de/vvs/widget/XML_DM_REQUEST?zocationServerActive=1'
@@ -58,7 +58,7 @@ def scrape(station_id, direction):
 @main.command()
 @click.argument('station_id')
 def list_directions(station_id):
-    soup = search(station_id, limit=500)
+    soup = search(station_id, limit=1000)
     directions = set()
     for departure in soup.find_all('itddeparture'):
         directions.add(departure.itdservingline['direction'])

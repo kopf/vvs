@@ -56,10 +56,13 @@ def scrape(station_id, direction):
 @click.option('--limit', '-l', type=int, default=3,
               help="Limit the number of departure times displayed")
 def display(file, format, limit):
-    departures = [datetime.strptime(d, TIME_FORMAT) for d in json.load(file)[:limit]]
+    now = datetime.now()
+    departures = [datetime.strptime(d, TIME_FORMAT) for d in json.load(file)]
+    departures = [d for d in departures if d > now][:limit]
+    if not departures:
+        click.echo("Scrape required!")
     if format:
         click.echo(', '.join([d.strftime(format) for d in departures]))
     else:
-        now = datetime.now()
         deltas = [str(int((d - now).seconds / 60)) for d in departures]
         click.echo("In {} min".format(', '.join(deltas)))

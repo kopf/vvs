@@ -110,3 +110,23 @@ in which it displays the data can be customized:
 Python's time formatting directives (link_) are used for string formatting.
 
 .. _link: https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior
+
+Troubleshooting
+---------------
+
+Locales
+~~~~~~~
+
+If you get an error that looks like this:
+
+.. code-block::
+
+    RuntimeError: Click will abort further execution because Python 3 was configured to use ASCII as encoding for the environment.
+
+Make sure you have your locales set correctly (``LC_ALL`` and ``LANG`` are ``export``ed).
+If that's not possible, then set them temporarily when you invoke ``vvs``, e.g.:
+
+.. code-block::
+
+    LC_ALL=en_US.utf-8 LANG=en_US.utf-8 vvs scrape 5007115
+

@@ -46,14 +46,23 @@ def scrape(station_id, direction):
     for departure in soup.find_all('itddeparture'):
         if direction and departure.itdservingline['direction'].lower() not in direction:
             continue
-        if departure.itdrtdatetime is None:
-            # Connection is out of service at the moment
+        if departure.itdrtdatetime:
+            # Real-time data
+            dt = datetime(int(departure.itdrtdatetime.itddate['year']),
+                          int(departure.itdrtdatetime.itddate['month']),
+                          int(departure.itdrtdatetime.itddate['day']),
+                          int(departure.itdrtdatetime.itdtime['hour']),
+                          int(departure.itdrtdatetime.itdtime['minute']))
+        elif departure.itddatetime:
+            # Scheduled data
+            dt = datetime(int(departure.itddatetime.itddate['year']),
+                          int(departure.itddatetime.itddate['month']),
+                          int(departure.itddatetime.itddate['day']),
+                          int(departure.itddatetime.itdtime['hour']),
+                          int(departure.itddatetime.itdtime['minute']))
+        else:
+            # Scheduled connection was cancelled
             continue
-        dt = datetime(int(departure.itdrtdatetime.itddate['year']),
-                      int(departure.itdrtdatetime.itddate['month']),
-                      int(departure.itdrtdatetime.itddate['day']),
-                      int(departure.itdrtdatetime.itdtime['hour']),
-                      int(departure.itdrtdatetime.itdtime['minute']))
         result.append(dt.strftime(TIME_FORMAT))
     click.echo(json.dumps(result))
 

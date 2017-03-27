@@ -4,6 +4,7 @@ import json
 from bs4 import BeautifulSoup
 import click
 import requests
+import pytz
 
 
 URL = ('http://www2.vvs.de/vvs/widget/XML_DM_REQUEST?zocationServerActive=1'
@@ -16,7 +17,7 @@ TIME_FORMAT = '%Y-%m-%d %H:%M'
 
 
 def search(station_id, limit=50):
-    now = datetime.now()
+    now = datetime.now(pytz.timezone('Europe/Berlin'))
     ctx = {
         'station_id': station_id,
         'year': now.year,
@@ -84,7 +85,7 @@ def list_directions(station_id):
 @click.option('--limit', '-l', type=int, default=3,
               help="Limit the number of departure times displayed")
 def display(file, format, limit):
-    now = datetime.now()
+    now = datetime.now(pytz.timezone('Europe/Berlin'))
     departures = [datetime.strptime(d, TIME_FORMAT) for d in json.load(file)]
     departures = [d for d in departures if d > now][:limit]
     if not departures:

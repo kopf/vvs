@@ -28,7 +28,7 @@ def setup_package():
           zip_safe=False,
           include_package_data=True,
           setup_requires=['setuptools_scm'],
-          install_requires=['beautifulsoup4==4.5.1', 'click==6.6', 'requests==2.11.1'],
+          install_requires=['beautifulsoup4', 'click', 'requests', 'pytz'],
           use_scm_version=True,
           entry_points=ENTRY_POINTS)
 

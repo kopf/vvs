@@ -18,8 +18,12 @@ TIME_FORMAT = '%Y-%m-%d %H:%M'
 TIMEZONE = pytz.timezone('Europe/Berlin')
 
 
+def _now():
+    return datetime.now().replace(tzinfo=TIMEZONE)
+
+
 def search(station_id, limit=50):
-    now = datetime.now(TIMEZONE)
+    now = _now()
     ctx = {
         'station_id': station_id,
         'year': now.year,
@@ -87,7 +91,7 @@ def list_directions(station_id):
 @click.option('--limit', '-l', type=int, default=3,
               help="Limit the number of departure times displayed")
 def display(file, format, limit):
-    now = datetime.now(TIMEZONE)
+    now = _now()
     departures = [datetime.strptime(d, TIME_FORMAT).replace(tzinfo=TIMEZONE) for d in json.load(file)]
     departures = [d for d in departures if d > now][:limit]
     if not departures:

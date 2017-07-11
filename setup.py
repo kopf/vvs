@@ -14,6 +14,7 @@ ENTRY_POINTS = """
 def setup_package():
     setup(name='vvs',
           description='Displays upcoming departure times from stations on the Stuttgart public transport network',
+          long_description=open('README.rst').read(),
           author='Aengus Walton',
           author_email='ventolin@gmail.com',
           url='https://github.com/kopf/vvs',
